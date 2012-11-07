@@ -157,6 +157,7 @@ alias ..='cl ..'
 alias trim_whitespace="sed -i 's/[ \t]*$//' "
 alias sush='ssh -l root'
 alias http_headers='curl -svo /dev/null'
+alias less='less -R'
 
 # Auto completion
 complete -cf sudo
