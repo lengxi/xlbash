@@ -158,6 +158,21 @@ alias trim_whitespace="sed -i 's/[ \t]*$//' "
 alias sush='ssh -l root'
 alias http_headers='curl -svo /dev/null'
 alias less='less -R'
+alias sshr="ssh -l root"
+alias detach-all="screen -list | grep Attached | cut -f1 -d. | xargs -n1 screen -d"
+
+# fasd aliases
+alias vsf="sf -e vim"
+alias tsf="sf -e t"
+
+# git aliases
+alias gb="git br -v"
+alias gr="git fetch && git svn rebase"
+alias gl="git log --pretty=fuller"
+alias gpr="git pull --rebase"
+alias gfrt="git fetch && git rebase trunk"
+alias gd="git diff"
+alias gfu="git ci -a --amend -C HEAD"  # fixup
 
 # Auto completion
 complete -cf sudo
