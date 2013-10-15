@@ -324,6 +324,11 @@ function psgrep(){
 #   the results of math operations, or other ruby expressions
 function calc(){ ruby -e "puts $*"; }
 
+# Source interactively-Selected File
+function ssf() {
+  source `sf $*`
+}
+
 add_path $HOME/bin
 add_path $HOME/.bash/bin
 add_path $HOME/.bash/group/bin
