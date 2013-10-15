@@ -328,7 +328,8 @@ add_path $HOME/.bash/bin
 add_path $HOME/.bash/group/bin
 
 # Set up git completion
-source $HOME/.bash/config/git-completion.bash
+source /usr/share/git-core/git-prompt.sh
+source /usr/share/git-core/git-completion.bash
 
 ###### PROMPT ######
 # Set up the prompt colors
