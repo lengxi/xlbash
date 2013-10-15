@@ -144,6 +144,7 @@ fi;
 # Options
 shopt -s checkwinsize
 shopt -s histappend   # Append to history rather than overwrite
+set -o vi
 
 # Aliases
 alias ls='ls -h $LS_COLOR'
