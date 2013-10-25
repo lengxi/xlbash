@@ -1,4 +1,4 @@
-escape ^]]                             # set escape to ctrl-].  Emacs friendly
+#escape ^]]                             # set escape to ctrl-].  Emacs friendly
 
 # default startup shell
 shell                 bash
@@ -24,3 +24,10 @@ hardstatus string  '%{= Kw}%-Lw%{=b bW}%50>%n: %t%{= Kw}%+Lw%< %{= kG}%-=%D %d %
 # startup some programs in the appropriate windows
 #screen 2 program
 #screen 0
+
+# bind function keys
+bindkey -k k1 prev
+bindkey -k k2 next
+bindkey -k k3 copy
+bindkey -k k4 screen
+bindkey -k k5 title
