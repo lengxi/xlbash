@@ -56,10 +56,6 @@
 
 # Source global definitions
 GLOBAL_BASH_DEF='/etc/bashrc'
-#if [ -f $GLOBAL_BASH_DEF ]
-#then
-#  source $GLOBAL_BASH_DEF
-#fi;
 
 # Create a scrubed hostname
 export HOSTNAME_SCRUB=`hostname | sed -e s/[^a-z0-9_]//g`
@@ -88,30 +84,10 @@ ex=01;32:\
 *.ogg=01;35:*.mp3=01;35:*.wav=01;35:\
 ";
 export GREP_OPTIONS='--color=auto'
-export GIT_CEILING_DIRECTORIES=`echo $HOME | sed 's#/[^/]*$##'`  # Either /home(linux) or /Users(mac)
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000
-export PROMPT_COMMAND='history -a'
-export BROWSER='firefox'
-#export LANG='en_US.utf8'
-export LANG='C' # Testing: Try out the C locale
 if [ -f "$HOME/.inputrc" ]; then
   export INPUTRC="$HOME/.inputrc"
 fi;
 export MAN_AUTOCOMP_FILE="/tmp/man_completes_`whoami`"
-
-# export the first java home we find
-(which java &> /dev/null)
-if [ $? -eq 0 ]; then
-  JAVA_IN_PATH=`ls -la "\`which java\`" | sed s/.*-\>[^/]*// | sed s#/bin/java##`
-fi;
-for x in [ $JAVA_IN_PATH ]; do
-  if [ -d $x ]; then
-    export JAVA_HOME=$x
-    break
-  fi
-done
-
 
 # Compatability options
 # The BSD sed on mac uses -E, while the GNU one on linux uses -r
@@ -325,18 +301,9 @@ function psgrep(){
 #   the results of math operations, or other ruby expressions
 function calc(){ ruby -e "puts $*"; }
 
-# Source interactively-Selected File
-function ssf() {
-  source `sf $*`
-}
-
 add_path $HOME/bin
 add_path $HOME/.bash/bin
 add_path $HOME/.bash/group/bin
-
-# Set up git completion
-source /usr/share/git-core/git-prompt.sh
-source /usr/share/git-core/git-completion.bash
 
 ###### PROMPT ######
 # Set up the prompt colors
