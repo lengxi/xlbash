@@ -7,7 +7,7 @@ if [ -d $INSTALL_DIR ]; then
   exit
 fi;
 
-git clone git://github.com/tkho/jackbash.git $INSTALL_DIR
+git clone git://github.com/lengxi/xlbash.git $INSTALL_DIR
 
 for x in $HOME/.bashrc $HOME/.profile $HOME/.bash_profile ; do
   if [ -e $x ]; then
@@ -16,17 +16,17 @@ for x in $HOME/.bashrc $HOME/.profile $HOME/.bash_profile ; do
   echo "source $INSTALL_DIR/bashrc" > $x
 done
 
-if [ ! -e $HOME/.gitconfig ]; then
+#if [ ! -e $HOME/.gitconfig ]; then
   # Copy because you have to fill in your user name
-  cp $INSTALL_DIR/config/.gitconfig $HOME/.gitconfig
-fi;
+#  cp $INSTALL_DIR/config/.gitconfig $HOME/.gitconfig
+#fi;
 
 if [ -e $HOME/.screenrc ]; then
   mv $HOME/.screenrc $HOME/.screenrc_backup
 fi;
 ln -s $INSTALL_DIR/config/.screenrc $HOME/.screenrc
 
-if [ -e $HOME/.inputrc ]; then
-  mv $HOME/.inputrc $HOME/.inputrc_backup
-fi;
-ln -s $INSTALL_DIR/config/.inputrc $HOME/.inputrc
+#if [ -e $HOME/.inputrc ]; then
+#  mv $HOME/.inputrc $HOME/.inputrc_backup
+#fi;
+#ln -s $INSTALL_DIR/config/.inputrc $HOME/.inputrc
