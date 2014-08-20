@@ -1,65 +1,10 @@
 # .bashrc
-# === INTRO ===
-#
-# Welcome to the most awesome bash startup script you'll ever see.
-#   It tries to be BSD and GNU compatable, which means it works on
-#   your MAC, cygwin, and sandbox server.  It also tries to be safe 
-#   to add as a source to your .bashrc and .bash_profile.  I usually 
-#   source this file from both.
-#   It is split into three files
-#   (1) Generic bash stuff
-#       * This is the stuff you would want to show and run anywhere
-#         you ever use bash: Work, home, your personal web-site, share
-#         with the internet, etc
-#   (2) Per group files
-#       * This is the file you would want to always run in whatever
-#         group you're in.  For example, at work on every server or at
-#         school on every server, these commands make sense.
-#   (3) Per hostname files
-#       * These are the commands you want to run only on the specified
-#         host
-#
-#  This also sources executable files, inside 'bin' split the same way
-#
-#  === FILE STRUCTURE ===
-#
-#  The file is organized into the following parts
-#
-#  (1) Source global definitions
-#  (2) Create global shell variables
-#  (3) Create BSD vs GNU compatable variables
-#  (4) Set shell options
-#  (5) Set aliases
-#  (6) Set autocomplete options
-#  (7) Create useful utility bash functions()
-#  (8) Setup global path
-#  (9) Setup the prompt
-#  (10) Source per group file
-#  (11) Source per hostname file
-#  (12) Clean up PATH
-#
-#
-#  === HOW TO INSTAL ===
-#  Execute
-#    ./install_bashrc
-#
-# === HOW TO MAINTAIN ===
-#
-# It is split into two .git repositories.  The first is public and you can get
-#   that code by executing:
-#  git clone git://github.com/cep21/jackbash.git
-#
-# The second is private.  You should make your own .git repository inside $HOME/.bash/group
-#   Put private information there, like your email address or SSH keys
-#
-
 
 # Source global definitions
 GLOBAL_BASH_DEF='/etc/bashrc'
 
 # Create a scrubed hostname
 export HOSTNAME_SCRUB=`hostname | sed -e s/[^a-z0-9_]//g`
-
 
 # Global variables
 # Sometimes EDITOR require a complete path
@@ -151,6 +96,9 @@ alias gpr="git pull --rebase"
 alias gfrt="git fetch && git rebase trunk"
 alias gd="git diff"
 alias gfu="git ci -a --amend -C HEAD"  # fixup
+
+# g4 piper functions
+function cdg4() { g4d -f "$@" ;}
 
 # Auto completion
 complete -cf sudo
@@ -313,6 +261,8 @@ if [ ${UID} -eq 0 ]; then
   PROMPT_COLOR=$R ### root is a red color prompt
 fi
 
+export CURSOR_PROMPT=">"
+
 # I like this prompt for a few reasons:
 # (1) The time shows when each command was executed, when I get back to my terminal
 # (2) Git information really important for git users
@@ -321,25 +271,11 @@ fi
 # (5) Color highlight out the current directory because it's important
 # (6) The export PS1 is simple to understand!
 # (7) If the prev command error codes, the prompt '>' turns red
-export PS1="$Y\t$N $W"''"$N$PROMPT_COLOR\u@\H$N:$C\w$N\n"'$CURSOR_PROMPT '
+export PS1="$Y\t$N $W$N$PROMPT_COLOR\u@\H$N:$C\w$N\n$CURSOR_PROMPT "
 # TODO: Find out why my $R and $N shortcuts don't work here!!!
 export PROMPT_COMMAND='if [ $? -ne 0 ]; then CURSOR_PROMPT=`echo -e "\033[0;31m>\033[0m"`; else CURSOR_PROMPT=">"; fi;'
-
-#### Source group
-GROUP_FILE="$HOME/.bash/group/group.bash"
-if [ -f $GROUP_FILE ]
-then
-  source $GROUP_FILE
-fi;
-##### Source the correct per-host file
-PERHOST_FILE="$HOME/.bash/group/hostnames/$HOSTNAME_SCRUB.bash"
-if [ -f $PERHOST_FILE ]
-then
-  source $PERHOST_FILE  
-fi;
 
 # remove duplicate path entries and preserve PATH order
 export PATH=$(echo $PATH | awk -F: '
 { start=0; for (i = 1; i <= NF; i++) if (!($i in arr) && $i) {if (start!=0) printf ":";start=1; printf "%s", $i;arr[$i]}; }
 END { printf "\n"; } ')
-
